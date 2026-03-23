@@ -82,6 +82,11 @@
             <h3>Skakur</h3>
             <p>Tiden tæller ned — sidst med tid vinder!</p>
           </div>
+          <div class="mode-card strip-card" onclick="selectMode('strip')">
+            <div class="mode-icon">🩲</div>
+            <h3>Strip Jeopardy</h3>
+            <p>Forkert svar = mist beklædning. Nøgen = du taber!</p>
+          </div>
         </div>
       </div>
 
@@ -186,6 +191,39 @@
       <div class="results-actions">
         <button class="btn-action" onclick="goToLanding()">🏠 Forside</button>
         <button class="btn-action" onclick="selectMode('chess')">⏱️ Spil igen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRIP JEOPARDY BOARD -->
+  <div id="stripScreen" class="screen">
+    <div class="jeopardy-header">
+      <div class="strip-scoreboard" id="stripScoreboard"></div>
+      <div class="jeopardy-turn" id="stripTurn"></div>
+    </div>
+    <div class="jeopardy-board" id="stripBoard"></div>
+  </div>
+
+  <!-- STRIP JEOPARDY QUESTION POPUP -->
+  <div class="jeopardy-overlay hidden" id="stripOverlay" onclick="closeStripIfOutside(event)">
+    <div class="jeopardy-popup strip-popup">
+      <div class="jp-points" id="spPoints"></div>
+      <div class="jp-category" id="spCategory"></div>
+      <h2 class="jp-question" id="spQuestion"></h2>
+      <div class="jp-options" id="spOptions"></div>
+      <button class="btn-pass jp-pass" id="spPass" onclick="stripPass()">⏭️ Pas (ingen straf)</button>
+    </div>
+  </div>
+
+  <!-- STRIP GAME OVER -->
+  <div id="stripGameOver" class="screen">
+    <div class="results-content">
+      <h1 class="strip-gameover-title">🩲 STRIP JEOPARDY 🩲</h1>
+      <div class="strip-loser" id="stripLoser"></div>
+      <div class="strip-standings" id="stripStandings"></div>
+      <div class="results-actions">
+        <button class="btn-action" onclick="goToLanding()">🏠 Forside</button>
+        <button class="btn-action" onclick="selectMode('strip')">🩲 Spil igen</button>
       </div>
     </div>
   </div>

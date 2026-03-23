@@ -103,7 +103,7 @@ function showScreen(id) {
 
   // Update navbar
   const quitBtn = document.getElementById('navQuit');
-  const isInQuiz = (id === 'quizScreen' || id === 'jeopardyScreen');
+  const isInQuiz = (id === 'quizScreen' || id === 'jeopardyScreen' || id === 'stripScreen');
   quitBtn.classList.toggle('hidden', !isInQuiz);
 
   const navTitle = document.getElementById('navTitle');
@@ -112,6 +112,8 @@ function showScreen(id) {
   else if (id === 'jeopardyScreen') navTitle.textContent = '🟦 Jeopardy';
   else if (id === 'quizScreen') navTitle.textContent = state.mode === 'chess' ? '⏱️ Skakur' : 'Quiz';
   else if (id === 'resultsScreen') navTitle.textContent = 'Resultater';
+  else if (id === 'stripScreen') navTitle.textContent = '🩲 Strip Jeopardy';
+  else if (id === 'stripGameOver') navTitle.textContent = 'Game Over';
   else if (id === 'gameOverScreen') navTitle.textContent = 'Game Over';
 }
 
@@ -119,6 +121,7 @@ function goToLanding() {
   stopClock();
   document.getElementById('chessSettings').classList.add('hidden');
   document.getElementById('jeopardyOverlay').classList.add('hidden');
+  document.getElementById('stripOverlay').classList.add('hidden');
   showScreen('landing');
 }
 
@@ -146,6 +149,8 @@ function selectMode(mode) {
   } else if (mode === 'chess') {
     document.getElementById('chessSettings').classList.remove('hidden');
     document.getElementById('chessSettings').scrollIntoView({ behavior: 'smooth' });
+  } else if (mode === 'strip') {
+    startStripJeopardy();
   }
 }
 
@@ -290,6 +295,9 @@ function renderChessQuestion() {
   document.getElementById('questionNumber').textContent =
     `Spørgsmål`;
   document.getElementById('questionText').textContent = q.q;
+
+  // Media (image / audio)
+  renderQuestionMedia(q);
 
   const letters = ['A', 'B', 'C', 'D'];
   const shuffledOptions = shuffle(q.options);
@@ -559,6 +567,9 @@ function renderQuestion() {
     `Spørgsmål ${state.currentQ + 1}`;
   document.getElementById('questionText').textContent = q.q;
 
+  // Media (image / audio)
+  renderQuestionMedia(q);
+
   const letters = ['A', 'B', 'C', 'D'];
   const shuffledOptions = shuffle(q.options);
   const optionsHtml = shuffledOptions.map((opt, i) => `
@@ -782,6 +793,9 @@ function pickJeopardyCell(col, row) {
   document.getElementById('jpQuestion').textContent = q.q;
   document.getElementById('jpPass').classList.remove('hidden');
 
+  // Media (image / audio) in jeopardy popup
+  renderJeopardyMedia(q);
+
   const letters = ['A', 'B', 'C', 'D'];
   const shuffledOpts = shuffle(q.options);
   document.getElementById('jpOptions').innerHTML = shuffledOpts.map((opt, i) => `
@@ -854,6 +868,331 @@ function closeJeopardyIfOutside(event) {
   // Only close if clicking the overlay background, not the popup
   if (event.target === document.getElementById('jeopardyOverlay') && jeopardyState.answered) {
     document.getElementById('jeopardyOverlay').classList.add('hidden');
+  }
+}
+
+// ─── Strip Jeopardy ───
+const CLOTHES = ['🧢', '👕', '👖', '🧦', '👟'];
+
+let stripState = {
+  board: [],
+  used: new Set(),
+  currentQ: null,
+  answered: false,
+  clothes: [] // array of arrays: clothes[teamIndex] = ['🧢','👕',...]
+};
+
+function startStripJeopardy() {
+  getTeams();
+  state.mode = 'strip';
+  state.currentTeam = 0;
+  state.teams.forEach(t => t.score = 0);
+
+  // Each team starts fully clothed
+  stripState.clothes = state.teams.map(() => [...CLOTHES]);
+
+  // Pick 6 random categories
+  const shuffled = shuffle([...JEOPARDY_CATEGORIES]);
+  stripState.board = shuffled.slice(0, 6);
+  stripState.used = new Set();
+
+  showScreen('stripScreen');
+  renderStripBoard();
+}
+
+function renderStripBoard() {
+  const board = document.getElementById('stripBoard');
+  const cols = stripState.board.length;
+  board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+  let html = '';
+  stripState.board.forEach(cat => {
+    html += `<div class="jp-header-cell">
+      <span class="jp-cat-icon">${cat.icon}</span>
+      <span>${cat.name}</span>
+    </div>`;
+  });
+
+  [100, 200, 300, 400, 500].forEach((pts, row) => {
+    stripState.board.forEach((cat, col) => {
+      const key = `${col}-${row}`;
+      const used = stripState.used.has(key);
+      html += `<div class="jp-cell ${used ? 'used' : ''}"
+        ${used ? '' : `onclick="pickStripCell(${col}, ${row})"`}>
+        ${used ? '' : pts}
+      </div>`;
+    });
+  });
+
+  board.innerHTML = html;
+
+  // Scoreboard with clothes
+  const sb = document.getElementById('stripScoreboard');
+  sb.innerHTML = state.teams.map((t, i) => {
+    const clothesLeft = stripState.clothes[i];
+    const naked = clothesLeft.length === 0;
+    let cls = 'strip-chip';
+    if (i === state.currentTeam && !naked) cls += ' active-team';
+    if (naked) cls += ' stripped';
+    return `
+      <div class="${cls}">
+        <div class="strip-name">${t.emoji} ${t.name}</div>
+        <div class="strip-clothes">${clothesLeft.length > 0 ? clothesLeft.join('') : '🩲'}</div>
+        <div class="strip-points">${t.score} point</div>
+      </div>
+    `;
+  }).join('');
+
+  // Turn
+  const team = state.teams[state.currentTeam];
+  document.getElementById('stripTurn').innerHTML =
+    `${team.emoji} ${team.name} vælger`;
+
+  // Check board complete
+  if (stripState.used.size >= stripState.board.length * 5) {
+    showStripGameOver(null); // nobody stripped fully, show standings
+  }
+}
+
+function pickStripCell(col, row) {
+  const key = `${col}-${row}`;
+  if (stripState.used.has(key)) return;
+
+  stripState.used.add(key);
+  stripState.answered = false;
+
+  const cat = stripState.board[col];
+  const q = cat.questions[row];
+  stripState.currentQ = { ...q, catName: cat.name, catIcon: cat.icon };
+
+  const overlay = document.getElementById('stripOverlay');
+  overlay.classList.remove('hidden');
+
+  document.getElementById('spPoints').textContent = q.points;
+  document.getElementById('spCategory').textContent = `${cat.icon} ${cat.name}`;
+  document.getElementById('spQuestion').textContent = q.q;
+  document.getElementById('spPass').classList.remove('hidden');
+
+  // Media
+  const oldMedia = document.getElementById('spMedia');
+  if (oldMedia) oldMedia.remove();
+  if (q.img || q.audio) {
+    const container = document.createElement('div');
+    container.id = 'spMedia';
+    container.className = 'question-media';
+    if (q.img) container.innerHTML += `<img src="${q.img}" alt="" class="question-img">`;
+    if (q.audio) {
+      container.innerHTML += `
+        <div class="audio-player">
+          <button class="btn-play-audio" onclick="toggleAudio(this)" data-src="${q.audio}">▶ Afspil klip</button>
+          <audio preload="none" src="${q.audio}"></audio>
+        </div>`;
+    }
+    document.getElementById('spQuestion').after(container);
+  }
+
+  const letters = ['A', 'B', 'C', 'D'];
+  const shuffledOpts = shuffle(q.options);
+  document.getElementById('spOptions').innerHTML = shuffledOpts.map((opt, i) => `
+    <button class="jp-option" data-answer="${opt}" onclick="pickStripAnswer(this)">
+      <span class="jp-letter">${letters[i]}</span>
+      <span>${opt}</span>
+    </button>
+  `).join('');
+}
+
+function pickStripAnswer(btn) {
+  if (stripState.answered) return;
+  stripState.answered = true;
+
+  const q = stripState.currentQ;
+  const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;
+  const picked = btn.dataset.answer;
+  const isCorrect = picked === correctAnswer;
+
+  document.querySelectorAll('#spOptions .jp-option').forEach(b => {
+    if (b.dataset.answer === correctAnswer) b.classList.add('correct');
+    else b.classList.add('wrong');
+  });
+  document.getElementById('spPass').classList.add('hidden');
+
+  if (isCorrect) {
+    state.teams[state.currentTeam].score += q.points;
+  } else {
+    // STRIP! Remove one clothing item
+    const clothes = stripState.clothes[state.currentTeam];
+    if (clothes.length > 0) {
+      clothes.pop();
+    }
+
+    // Check if naked
+    if (clothes.length === 0) {
+      setTimeout(() => {
+        document.getElementById('stripOverlay').classList.add('hidden');
+        showStripGameOver(state.currentTeam);
+      }, 1500);
+      return;
+    }
+  }
+
+  setTimeout(() => {
+    if (!isCorrect) {
+      state.currentTeam = (state.currentTeam + 1) % state.teams.length;
+      // Skip naked teams
+      let safety = 0;
+      while (stripState.clothes[state.currentTeam].length === 0 && safety < state.teams.length) {
+        state.currentTeam = (state.currentTeam + 1) % state.teams.length;
+        safety++;
+      }
+    }
+    document.getElementById('stripOverlay').classList.add('hidden');
+    renderStripBoard();
+  }, 1500);
+}
+
+function stripPass() {
+  if (stripState.answered) return;
+  stripState.answered = true;
+
+  const q = stripState.currentQ;
+  const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;
+  document.querySelectorAll('#spOptions .jp-option').forEach(b => {
+    if (b.dataset.answer === correctAnswer) b.classList.add('correct');
+    else b.classList.add('wrong');
+  });
+  document.getElementById('spPass').classList.add('hidden');
+
+  setTimeout(() => {
+    state.currentTeam = (state.currentTeam + 1) % state.teams.length;
+    let safety = 0;
+    while (stripState.clothes[state.currentTeam].length === 0 && safety < state.teams.length) {
+      state.currentTeam = (state.currentTeam + 1) % state.teams.length;
+      safety++;
+    }
+    document.getElementById('stripOverlay').classList.add('hidden');
+    renderStripBoard();
+  }, 1500);
+}
+
+function closeStripIfOutside(event) {
+  if (event.target === document.getElementById('stripOverlay') && stripState.answered) {
+    document.getElementById('stripOverlay').classList.add('hidden');
+  }
+}
+
+function showStripGameOver(loserIndex) {
+  showScreen('stripGameOver');
+
+  if (loserIndex !== null) {
+    const loser = state.teams[loserIndex];
+    document.getElementById('stripLoser').innerHTML = `
+      <div class="handjob-scene">
+        <span class="hj-sweat" style="--dx: 20px;">💦</span>
+        <span class="hj-sweat" style="--dx: -20px;">💦</span>
+        <span class="hj-sweat" style="--dx: 10px;">💦</span>
+        <span class="hj-stars">⭐✨⭐</span>
+        <span class="hj-person">😳</span>
+        <span class="hj-hand">🫳</span>
+      </div>
+      <span class="loser-name">${loser.emoji} ${loser.name}</span>
+      <div style="color: var(--text-dim); margin-top: 8px; font-size: 1.2rem;">har mistet alt tøj og får et handjob! 🩲</div>
+    `;
+  } else {
+    document.getElementById('stripLoser').innerHTML = `
+      <span class="loser-emoji">👏</span>
+      <div style="color: var(--text-dim); margin-top: 8px;">Alle beholdt tøjet! Tavlen er tom.</div>
+    `;
+  }
+
+  // Standings sorted by clothes remaining, then points
+  const standings = state.teams
+    .map((t, i) => ({ ...t, index: i, clothes: stripState.clothes[i] }))
+    .sort((a, b) => b.clothes.length - a.clothes.length || b.score - a.score);
+
+  const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣'];
+  document.getElementById('stripStandings').innerHTML = `
+    <h2 style="margin-bottom: 15px; color: var(--pink);">Slutstilling</h2>
+    ${standings.map((t, i) => `
+      <div class="strip-standing-row">
+        <span class="standing-rank">${medals[i] || '#' + (i+1)}</span>
+        <span class="standing-name">${t.emoji} ${t.name}</span>
+        <span class="standing-clothes">${t.clothes.length > 0 ? t.clothes.join('') : '🩲'}</span>
+        <span class="standing-points">${t.score} point</span>
+      </div>
+    `).join('')}
+  `;
+}
+
+// ─── Media rendering (image / audio) ───
+function renderQuestionMedia(q) {
+  // Remove old media container if present
+  const old = document.getElementById('questionMedia');
+  if (old) old.remove();
+
+  if (!q.img && !q.audio) return;
+
+  const container = document.createElement('div');
+  container.id = 'questionMedia';
+  container.className = 'question-media';
+
+  if (q.img) {
+    container.innerHTML += `<img src="${q.img}" alt="Spørgsmålsbillede" class="question-img">`;
+  }
+  if (q.audio) {
+    container.innerHTML += `
+      <div class="audio-player">
+        <button class="btn-play-audio" onclick="toggleAudio(this)" data-src="${q.audio}">▶ Afspil klip</button>
+        <audio preload="none" src="${q.audio}"></audio>
+      </div>
+    `;
+  }
+
+  // Insert after question text, before options
+  const questionText = document.getElementById('questionText');
+  questionText.after(container);
+}
+
+function renderJeopardyMedia(q) {
+  const old = document.getElementById('jpMedia');
+  if (old) old.remove();
+
+  if (!q.img && !q.audio) return;
+
+  const container = document.createElement('div');
+  container.id = 'jpMedia';
+  container.className = 'question-media';
+
+  if (q.img) {
+    container.innerHTML += `<img src="${q.img}" alt="Spørgsmålsbillede" class="question-img">`;
+  }
+  if (q.audio) {
+    container.innerHTML += `
+      <div class="audio-player">
+        <button class="btn-play-audio" onclick="toggleAudio(this)" data-src="${q.audio}">▶ Afspil klip</button>
+        <audio preload="none" src="${q.audio}"></audio>
+      </div>
+    `;
+  }
+
+  const jpQuestion = document.getElementById('jpQuestion');
+  jpQuestion.after(container);
+}
+
+function toggleAudio(btn) {
+  const audio = btn.nextElementSibling;
+  if (audio.paused) {
+    // Stop any other playing audio
+    document.querySelectorAll('.question-media audio').forEach(a => {
+      a.pause();
+      a.currentTime = 0;
+    });
+    document.querySelectorAll('.btn-play-audio').forEach(b => b.textContent = '▶ Afspil klip');
+    audio.play();
+    btn.textContent = '⏸ Stop';
+  } else {
+    audio.pause();
+    audio.currentTime = 0;
+    btn.textContent = '▶ Afspil klip';
   }
 }
 

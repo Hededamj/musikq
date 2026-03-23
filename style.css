@@ -1057,31 +1057,124 @@ body {
   color: white;
 }
 
-/* Mode cards grid — 5 cards now */
-.mode-cards {
-  grid-template-columns: repeat(3, 1fr) !important;
-}
+/* Hidden utility */
+.hidden { display: none !important; }
 
-@media (max-width: 700px) {
+/* ==================== RESPONSIVE ==================== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .mode-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .jeopardy-board { font-size: 0.8rem; }
   .jp-cell { font-size: 1.3rem; padding: 10px 4px; min-height: 55px; }
   .jp-header-cell { font-size: 0.7rem; padding: 8px 4px; min-height: 50px; }
   .jp-options { grid-template-columns: 1fr; }
   .jeopardy-popup { padding: 25px 20px; }
   .jp-question { font-size: 1.1rem; }
+  .question-card { padding: 25px 20px; }
 }
 
-/* Hidden utility */
-.hidden { display: none !important; }
+/* Mobile */
+@media (max-width: 500px) {
+  .screen {
+    padding: 60px 12px 12px;
+  }
+  .landing-content {
+    padding-top: 15px;
+  }
+  .title { font-size: 3rem; }
+  .highlight { font-size: 3.8rem; }
+  .subtitle { font-size: 1.1rem; }
+  .tagline { font-size: 0.85rem; margin-bottom: 20px; }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .title { font-size: 3.5rem; }
-  .highlight { font-size: 4.5rem; }
-  .mode-cards { grid-template-columns: 1fr; }
-  .options { grid-template-columns: 1fr; }
-  .question-text { font-size: 1.2rem; }
-  .podium-bar { width: 70px; }
+  .vinyl { width: 100px; height: 100px; }
+  .vinyl-label { width: 35px; height: 35px; }
+  .vinyl-text { font-size: 15px; }
+
+  .player-setup { padding: 18px 14px; margin-bottom: 20px; }
+  .player-setup h2 { font-size: 1rem; }
+  .team-input { padding: 8px 12px; font-size: 0.9rem; }
+  .team-emoji { font-size: 1.2rem; width: 30px; }
+  .btn-small { padding: 6px 14px; font-size: 0.85rem; }
+
+  .mode-select h2 { font-size: 1rem; }
+  .mode-cards { grid-template-columns: 1fr; gap: 10px; }
+  .mode-card { padding: 18px 14px; display: flex; align-items: center; gap: 14px; text-align: left; }
+  .mode-icon { font-size: 2rem; margin-bottom: 0; flex-shrink: 0; }
+  .mode-card h3 { font-size: 0.95rem; margin-bottom: 2px; }
+  .mode-card p { font-size: 0.75rem; }
+
+  .chess-settings { padding: 18px 14px; }
+  .chess-settings h2 { font-size: 1.1rem; }
+  .btn-start-chess { padding: 14px 30px; font-size: 1.1rem; }
+
+  /* Category screen */
+  .screen-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .screen-header h1 { font-size: 2rem; }
+  .btn-back { padding: 8px 16px; font-size: 0.9rem; }
+  .category-grid { grid-template-columns: 1fr; }
+  .category-card { padding: 18px; }
+
+  /* Quiz screen */
+  .quiz-meta { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .quiz-category { font-size: 1.3rem; }
+  .quiz-progress { font-size: 0.85rem; }
   .scoreboard { gap: 6px; }
-  .score-chip { padding: 6px 10px; font-size: 0.85rem; }
+  .score-chip { padding: 6px 10px; font-size: 0.8rem; }
+  .score-chip .score-name { font-size: 0.8rem; }
+  .score-chip .score-points { font-size: 0.95rem; }
+
+  .question-card { padding: 20px 16px; margin-bottom: 15px; border-radius: 14px; }
+  .question-number { font-size: 0.75rem; margin-bottom: 10px; }
+  .question-text { font-size: 1.1rem; margin-bottom: 18px; }
+  .options { grid-template-columns: 1fr; gap: 8px; }
+  .option-btn { padding: 12px 14px; font-size: 0.9rem; }
+  .option-btn .option-letter { width: 28px; height: 28px; font-size: 0.8rem; }
+
+  .current-team { font-size: 1rem; }
+  .btn-reveal { padding: 12px 30px; font-size: 1rem; }
+  .answer-buttons { flex-direction: column; gap: 10px; }
+  .btn-correct, .btn-wrong { padding: 14px 20px; font-size: 1rem; }
+  .btn-pass { padding: 10px 20px; font-size: 0.9rem; }
+
+  .timer-display { font-size: 3.5rem; }
+
+  /* Results */
+  .results-content { padding-top: 20px; }
+  .results-title { font-size: 2.2rem; }
+  .podium { gap: 8px; min-height: 200px; }
+  .podium-bar { width: 60px; }
+  .podium-place .place-medal { font-size: 2rem; }
+  .podium-place .place-name { font-size: 0.95rem; }
+  .podium-place .place-score { font-size: 1.2rem; }
+  .results-actions { flex-direction: column; }
+  .btn-action { padding: 12px 20px; font-size: 0.95rem; }
+  .result-row { padding: 10px 14px; }
+
+  /* Game over */
+  .gameover-title { font-size: 2.2rem; }
+  .gameover-loser { padding: 15px; font-size: 1.2rem; }
+  .gameover-loser .loser-emoji { font-size: 3rem; }
+  .gameover-loser .loser-name { font-size: 1.4rem; }
+  .chess-standing-row { padding: 10px 14px; }
+
+  /* Jeopardy */
+  .jeopardy-board { gap: 4px; }
+  .jp-cell { font-size: 1.1rem; padding: 8px 3px; min-height: 45px; }
+  .jp-header-cell { font-size: 0.6rem; padding: 6px 3px; min-height: 40px; }
+  .jp-header-cell .jp-cat-icon { font-size: 1rem; }
+  .jeopardy-overlay { padding: 10px; }
+  .jeopardy-popup { padding: 20px 16px; border-radius: 14px; }
+  .jp-points { font-size: 2.2rem; }
+  .jp-category { font-size: 0.8rem; }
+  .jp-question { font-size: 1rem; }
+  .jp-option { padding: 12px 14px; font-size: 0.85rem; }
+  .jp-letter { width: 26px; height: 26px; }
+
+  /* Navbar */
+  .navbar { padding: 8px 12px; }
+  .nav-btn { padding: 6px 12px; font-size: 0.8rem; }
+  .nav-title { font-size: 1.1rem; }
 }

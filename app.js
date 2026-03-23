@@ -1141,9 +1141,11 @@ function buildMediaHTML(q) {
     `;
   }
   if (q.spotify) {
+    // Convert spotify track URL to embed URL
+    const embedUrl = q.spotify.replace('open.spotify.com/', 'open.spotify.com/embed/') + '?utm_source=generator&theme=0';
     html += `
-      <div class="audio-player">
-        <button class="btn-play-spotify" onclick="window.open('${q.spotify}', '_blank')">🎵 Lyt på Spotify</button>
+      <div class="spotify-embed">
+        <iframe src="${embedUrl}" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
     `;
   }

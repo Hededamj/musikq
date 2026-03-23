@@ -144,5 +144,16 @@ const JEOPARDY_CATEGORIES = [
       { points: 400, q: "Donna Summers 'Love to Love You Baby' fra 1975 var kontroversiel pga. stønnen. Hvor lang er den fulde version?", a: "Over 16 minutter", options: ["Over 16 minutter", "7 minutter", "10 minutter", "22 minutter"] },
       { points: 500, q: "Hvilket Massive Attack-album fra 1998 er opkaldt efter en beskyttelsesengel og betragtes som det ultimative sensuelle album?", a: "Mezzanine", options: ["Mezzanine", "Blue Lines", "Protection", "Heligoland"] }
     ]
+  },
+  {
+    name: "Fisse Lis",
+    icon: "🐱",
+    questions: [
+      { points: 100, q: "Hvad hedder FISSELIS' selvbetitlede debutsingle fra 2020?", a: "FisseLis", options: ["FisseLis", "Hår På Fissen", "Dildo", "Bollevenner"] },
+      { points: 200, q: "Hvilken sang af FISSELIS handler om uønskede billeder i indbakken?", a: "Vodka, Dickpics", options: ["Vodka, Dickpics", "Pikslikker", "Verdens Mindste P*k", "Vis Mig Hva Du Ka"] },
+      { points: 300, q: "Hvem featurede FISSELIS på nummeret 'Vodka, Dickpics'?", a: "Johny Cola", options: ["Johny Cola", "Ukendt Kunstner", "Gilli", "Kesi"] },
+      { points: 400, q: "Hvad hedder FISSELIS' comeback-single fra 2025 efter 5 års pause?", a: "Bollevenner", options: ["Bollevenner", "FisseLis 2.0", "Hår På Fissen Remix", "Knaldrøde Kusse"] },
+      { points: 500, q: "Hvilket af disse er IKKE en rigtig FISSELIS-sang?", a: "Slik Min Sjæl", options: ["Hår På Fissen", "Verdens Mindste P*k", "Knaldrøde Kusse", "Slik Min Sjæl"] }
+    ]
   }
 ];

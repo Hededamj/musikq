@@ -1096,7 +1096,17 @@ function showStripGameOver(loserIndex) {
       </div>
       <span class="loser-name">${loser.emoji} ${loser.name}</span>
       <div style="color: var(--text-dim); margin-top: 8px; font-size: 1.2rem;">har mistet alt tøj og får et handjob! 🩲</div>
+      <div class="hj-finale hidden" id="hjFinale">
+        <div style="font-size: 4rem;">💦🍆💦</div>
+        <div class="hj-scream">ÅÅÅÅÅÅÅÅÅÅÅH!</div>
+      </div>
     `;
+
+    // Show splash emoji + scream after 10 seconds
+    setTimeout(() => {
+      const finale = document.getElementById('hjFinale');
+      if (finale) finale.classList.remove('hidden');
+    }, 10000);
   } else {
     document.getElementById('stripLoser').innerHTML = `
       <span class="loser-emoji">👏</span>

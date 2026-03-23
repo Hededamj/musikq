@@ -1226,6 +1226,29 @@ body {
   0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(0.8); }
   50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
 }
+.hj-finale {
+  margin-top: 15px;
+  animation: hj-finale-pop 0.8s ease-out;
+}
+@keyframes hj-finale-pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.5); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.hj-scream {
+  font-family: 'Bangers', cursive;
+  font-size: 3rem;
+  color: var(--pink);
+  letter-spacing: 4px;
+  margin-top: 10px;
+  animation: hj-scream-shake 0.15s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(236,72,153,0.5);
+}
+@keyframes hj-scream-shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-3px) rotate(-2deg); }
+  75% { transform: translateX(3px) rotate(2deg); }
+}
 .strip-standings {
   margin-bottom: 30px;
 }

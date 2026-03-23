@@ -133,5 +133,16 @@ const JEOPARDY_CATEGORIES = [
       { points: 400, q: "Hvad hedder B.B. Kings guitar?", a: "Lucille", options: ["Lucille", "Blackie", "Trigger", "Stella"] },
       { points: 500, q: "Brian May fra Queen byggede sin guitar 'Red Special' selv. Hvad var den delvist lavet af?", a: "Et gammelt kaminstykke (pejshylde af mahogni)", options: ["Et gammelt kaminstykke (pejshylde af mahogni)", "En gammel dør", "Jernbaneskinner", "En båd"] }
     ]
+  },
+  {
+    name: "Tandrasex",
+    icon: "🔥",
+    questions: [
+      { points: 100, q: "Hvem sang 'Let's Get It On' i 1973?", a: "Marvin Gaye", options: ["Marvin Gaye", "Barry White", "Al Green", "Stevie Wonder"] },
+      { points: 200, q: "Hvilket band sang 'I Wanna Sex You Up'?", a: "Color Me Badd", options: ["Color Me Badd", "Boyz II Men", "Bell Biv DeVoe", "New Edition"] },
+      { points: 300, q: "Hvem sang 'Earned It' fra Fifty Shades of Grey-soundtracket?", a: "The Weeknd", options: ["The Weeknd", "Frank Ocean", "Miguel", "Chris Brown"] },
+      { points: 400, q: "Donna Summers 'Love to Love You Baby' fra 1975 var kontroversiel pga. stønnen. Hvor lang er den fulde version?", a: "Over 16 minutter", options: ["Over 16 minutter", "7 minutter", "10 minutter", "22 minutter"] },
+      { points: 500, q: "Hvilket Massive Attack-album fra 1998 er opkaldt efter en beskyttelsesengel og betragtes som det ultimative sensuelle album?", a: "Mezzanine", options: ["Mezzanine", "Blue Lines", "Protection", "Heligoland"] }
+    ]
   }
 ];

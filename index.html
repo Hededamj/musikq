@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusikQ - Skoven Kalder 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar" id="navbar">
+    <button class="nav-btn" onclick="goToLanding()" title="Hjem">🏠 Hjem</button>
+    <div class="nav-title" id="navTitle">MusikQ</div>
+    <button class="nav-btn nav-quit hidden" id="navQuit" onclick="quitToLanding()" title="Afslut quiz">✕ Afslut</button>
+  </nav>
+
+  <!-- LANDING PAGE -->
+  <div id="landing" class="screen active">
+    <div class="stars" id="stars"></div>
+    <div class="landing-content">
+      <div class="logo-area">
+        <div class="vinyl" id="vinyl">
+          <div class="vinyl-label">
+            <span class="vinyl-text">MQ</span>
+          </div>
+        </div>
+      </div>
+      <h1 class="title">MUSIK<span class="highlight">Q</span></h1>
+      <p class="subtitle">Skoven Kalder 2026</p>
+      <p class="tagline">6 venner &bull; 300+ spørgsmål &bull; 1 vinder</p>
+
+      <div class="player-setup">
+        <h2>Indtast holdnavne</h2>
+        <div class="team-inputs" id="teamInputs">
+          <div class="team-row">
+            <span class="team-emoji">🎸</span>
+            <input type="text" class="team-input" placeholder="Hold 1" value="Hold 1" data-team="0">
+          </div>
+          <div class="team-row">
+            <span class="team-emoji">🥁</span>
+            <input type="text" class="team-input" placeholder="Hold 2" value="Hold 2" data-team="1">
+          </div>
+          <div class="team-row">
+            <span class="team-emoji">🎤</span>
+            <input type="text" class="team-input" placeholder="Hold 3" value="Hold 3" data-team="2">
+          </div>
+        </div>
+        <div class="team-count-btns">
+          <button class="btn-small" onclick="setTeams(2)">2 hold</button>
+          <button class="btn-small active" onclick="setTeams(3)">3 hold</button>
+          <button class="btn-small" onclick="setTeams(6)">6 hold</button>
+        </div>
+      </div>
+
+      <div class="mode-select">
+        <h2>Vælg spillemåde</h2>
+        <div class="mode-cards">
+          <div class="mode-card" onclick="selectMode('category')">
+            <div class="mode-icon">📂</div>
+            <h3>Vælg Kategori</h3>
+            <p>Spil én kategori ad gangen</p>
+          </div>
+          <div class="mode-card" onclick="selectMode('random')">
+            <div class="mode-icon">🎲</div>
+            <h3>Random Mix</h3>
+            <p>Tilfældige spørgsmål fra alle kategorier</p>
+          </div>
+          <div class="mode-card" onclick="selectMode('full')">
+            <div class="mode-icon">🏆</div>
+            <h3>Fuld Turnering</h3>
+            <p>Alle kategorier i rækkefølge</p>
+          </div>
+          <div class="mode-card jeopardy-card" onclick="selectMode('jeopardy')">
+            <div class="mode-icon">🟦</div>
+            <h3>Jeopardy</h3>
+            <p>Vælg kategori og sværhedsgrad fra tavlen</p>
+          </div>
+          <div class="mode-card chess-clock-card" onclick="selectMode('chess')">
+            <div class="mode-icon">⏱️</div>
+            <h3>Skakur</h3>
+            <p>Tiden tæller ned — sidst med tid vinder!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chess-settings hidden" id="chessSettings">
+        <h2>⏱️ Skakur — Indstillinger</h2>
+        <div class="time-picker">
+          <label>Tid per hold:</label>
+          <div class="time-btns">
+            <button class="btn-small" onclick="setChessTime(30)">30 sek</button>
+            <button class="btn-small active" onclick="setChessTime(60)">60 sek</button>
+            <button class="btn-small" onclick="setChessTime(90)">90 sek</button>
+            <button class="btn-small" onclick="setChessTime(120)">2 min</button>
+          </div>
+        </div>
+        <button class="btn-start-chess" onclick="startChessClock()">START SKAKUR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY SELECT -->
+  <div id="categoryScreen" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="goToLanding()">← Tilbage</button>
+      <h1>Vælg Kategori</h1>
+    </div>
+    <div class="category-grid" id="categoryGrid"></div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quizScreen" class="screen">
+    <div class="quiz-header">
+      <div class="quiz-meta">
+        <span class="quiz-category" id="quizCategory"></span>
+        <span class="quiz-progress" id="quizProgress"></span>
+      </div>
+      <div class="scoreboard" id="scoreboard"></div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="question-card" id="questionCard">
+        <div class="question-number" id="questionNumber"></div>
+        <h2 class="question-text" id="questionText"></h2>
+        <div class="options" id="options"></div>
+      </div>
+
+      <div class="quiz-controls">
+        <div class="current-team" id="currentTeam"></div>
+        <div class="chess-timer hidden" id="chessTimer">
+          <div class="timer-display" id="timerDisplay">60.0</div>
+        </div>
+        <button class="btn-reveal hidden" id="btnReveal" onclick="revealAnswer()">Vis svar</button>
+        <div class="answer-buttons hidden" id="answerButtons">
+          <button class="btn-correct" onclick="scoreAnswer(true)">✓ Rigtigt</button>
+          <button class="btn-wrong" onclick="scoreAnswer(false)">✗ Forkert</button>
+        </div>
+        <button class="btn-pass hidden" id="btnPass" onclick="passQuestion()">⏭️ Pas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="resultsScreen" class="screen">
+    <div class="results-content">
+      <h1 class="results-title">🏆 Resultater 🏆</h1>
+      <div class="results-category" id="resultsCategory"></div>
+      <div class="podium" id="podium"></div>
+      <div class="results-details" id="resultsDetails"></div>
+      <div class="results-actions">
+        <button class="btn-action" onclick="goToLanding()">🏠 Forside</button>
+        <button class="btn-action" onclick="playAgain()">🔄 Spil igen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JEOPARDY BOARD -->
+  <div id="jeopardyScreen" class="screen">
+    <div class="jeopardy-header">
+      <div class="jeopardy-scoreboard" id="jeopardyScoreboard"></div>
+      <div class="jeopardy-turn" id="jeopardyTurn"></div>
+    </div>
+    <div class="jeopardy-board" id="jeopardyBoard"></div>
+  </div>
+
+  <!-- JEOPARDY QUESTION POPUP -->
+  <div class="jeopardy-overlay hidden" id="jeopardyOverlay" onclick="closeJeopardyIfOutside(event)">
+    <div class="jeopardy-popup">
+      <div class="jp-points" id="jpPoints"></div>
+      <div class="jp-category" id="jpCategory"></div>
+      <h2 class="jp-question" id="jpQuestion"></h2>
+      <div class="jp-options" id="jpOptions"></div>
+      <button class="btn-pass jp-pass" id="jpPass" onclick="jeopardyPass()">⏭️ Pas (ingen point)</button>
+    </div>
+  </div>
+
+  <!-- GAME OVER SCREEN (Chess clock) -->
+  <div id="gameOverScreen" class="screen">
+    <div class="results-content">
+      <h1 class="gameover-title" id="gameoverTitle">TIDEN ER UDLØBET!</h1>
+      <div class="gameover-loser" id="gameoverLoser"></div>
+      <div class="gameover-survivors" id="gameoverSurvivors"></div>
+      <div class="chess-final-standings" id="chessFinalStandings"></div>
+      <div class="results-actions">
+        <button class="btn-action" onclick="goToLanding()">🏠 Forside</button>
+        <button class="btn-action" onclick="selectMode('chess')">⏱️ Spil igen</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="jeopardy.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

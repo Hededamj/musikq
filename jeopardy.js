@@ -6,7 +6,7 @@ const JEOPARDY_CATEGORIES = [
     name: "80'er Klassikere",
     icon: "💿",
     questions: [
-      { points: 100, q: "Hvilket norsk band sang 'Take On Me'?", a: "a-ha", options: ["a-ha", "Duran Duran", "Depeche Mode", "Erasure"] },
+      { points: 100, q: "Hvilket norsk band sang 'Take On Me'?", a: "a-ha", options: ["a-ha", "Duran Duran", "Depeche Mode", "Erasure"], spotify: "https://open.spotify.com/track/2WfaOiMkCvy7F5fcp2zZ8L" },
       { points: 200, q: "Hvem sang 'Purple Rain' i 1984?", a: "Prince", options: ["Michael Jackson", "Prince", "David Bowie", "George Michael"] },
       { points: 300, q: "Hvilket band sang 'The Final Countdown' — og hvilket land kommer de fra?", a: "Europe (Sverige)", options: ["Europe (Sverige)", "Scorpions (Tyskland)", "Accept (Tyskland)", "Whitesnake (England)"] },
       { points: 400, q: "Hvilket Dire Straits-album indeholder 'Money for Nothing' og 'Walk of Life'?", a: "Brothers in Arms", options: ["Brothers in Arms", "Love Over Gold", "Making Movies", "Communiqué"] },
@@ -28,7 +28,7 @@ const JEOPARDY_CATEGORIES = [
     name: "Rock Legender",
     icon: "🤘",
     questions: [
-      { points: 100, q: "Hvilket band sang 'We Will Rock You'?", a: "Queen", options: ["Queen", "AC/DC", "Kiss", "Aerosmith"] },
+      { points: 100, q: "Hvilket band sang 'We Will Rock You'?", a: "Queen", options: ["Queen", "AC/DC", "Kiss", "Aerosmith"], spotify: "https://open.spotify.com/track/54flyrjcdnQdco2300avMJ" },
       { points: 200, q: "Hvem er forsanger i The Rolling Stones?", a: "Mick Jagger", options: ["Mick Jagger", "Keith Richards", "Roger Daltrey", "Robert Plant"] },
       { points: 300, q: "Hvilket Pink Floyd-album har et prisme på coveret?", a: "The Dark Side of the Moon", options: ["The Dark Side of the Moon", "Wish You Were Here", "The Wall", "Animals"] },
       { points: 400, q: "Hvem spillede det berømte guitar-solo på Hotel California?", a: "Don Felder og Joe Walsh", options: ["Don Felder og Joe Walsh", "Glenn Frey", "Randy Meisner", "Bernie Leadon"] },
@@ -61,7 +61,7 @@ const JEOPARDY_CATEGORIES = [
     name: "Disco & Funk",
     icon: "🕺",
     questions: [
-      { points: 100, q: "Hvilket band sang 'Dancing Queen'?", a: "ABBA", options: ["ABBA", "Bee Gees", "Boney M", "Donna Summer"] },
+      { points: 100, q: "Hvilket band sang 'Dancing Queen'?", a: "ABBA", options: ["ABBA", "Bee Gees", "Boney M", "Donna Summer"], spotify: "https://open.spotify.com/track/0GjEhVFGZW8afUYGChu3Rr" },
       { points: 200, q: "Hvem sang 'I Will Survive'?", a: "Gloria Gaynor", options: ["Gloria Gaynor", "Donna Summer", "Diana Ross", "Cher"] },
       { points: 300, q: "Hvilket band sang 'September' og 'Boogie Wonderland'?", a: "Earth, Wind & Fire", options: ["Earth, Wind & Fire", "Kool & the Gang", "Chic", "The Commodores"] },
       { points: 400, q: "Hvem producerede Chics 'Le Freak' og 'Good Times' — og producerede senere for Bowie og Madonna?", a: "Nile Rodgers", options: ["Nile Rodgers", "Giorgio Moroder", "Quincy Jones", "Bernard Edwards"] },
@@ -138,22 +138,22 @@ const JEOPARDY_CATEGORIES = [
     name: "Tandrasex",
     icon: "🔥",
     questions: [
-      { points: 100, q: "Hvem sang 'Let's Get It On' i 1973?", a: "Marvin Gaye", options: ["Marvin Gaye", "Barry White", "Al Green", "Stevie Wonder"] },
-      { points: 200, q: "Hvilket band sang 'I Wanna Sex You Up'?", a: "Color Me Badd", options: ["Color Me Badd", "Boyz II Men", "Bell Biv DeVoe", "New Edition"] },
-      { points: 300, q: "Hvem sang 'Earned It' fra Fifty Shades of Grey-soundtracket?", a: "The Weeknd", options: ["The Weeknd", "Frank Ocean", "Miguel", "Chris Brown"] },
-      { points: 400, q: "Donna Summers 'Love to Love You Baby' fra 1975 var kontroversiel pga. stønnen. Hvor lang er den fulde version?", a: "Over 16 minutter", options: ["Over 16 minutter", "7 minutter", "10 minutter", "22 minutter"] },
-      { points: 500, q: "Hvilket Massive Attack-album fra 1998 er opkaldt efter en beskyttelsesengel og betragtes som det ultimative sensuelle album?", a: "Mezzanine", options: ["Mezzanine", "Blue Lines", "Protection", "Heligoland"] }
+      { points: 100, q: "Hvem sang 'Let's Get It On' i 1973?", a: "Marvin Gaye", options: ["Marvin Gaye", "Barry White", "Al Green", "Stevie Wonder"], spotify: "https://open.spotify.com/track/4NtUY5IGzHCaqfZemmSuUB" },
+      { points: 200, q: "Hvilket band sang 'I Wanna Sex You Up'?", a: "Color Me Badd", options: ["Color Me Badd", "Boyz II Men", "Bell Biv DeVoe", "New Edition"], spotify: "https://open.spotify.com/track/2eT4gCBJwuMjMPCNhmQxBa" },
+      { points: 300, q: "Hvem sang 'Earned It' fra Fifty Shades of Grey-soundtracket?", a: "The Weeknd", options: ["The Weeknd", "Frank Ocean", "Miguel", "Chris Brown"], spotify: "https://open.spotify.com/track/2PIvq0pN4yvKkRISScpZpo" },
+      { points: 400, q: "Donna Summers 'Love to Love You Baby' fra 1975 var kontroversiel pga. stønnen. Hvor lang er den fulde version?", a: "Over 16 minutter", options: ["Over 16 minutter", "7 minutter", "10 minutter", "22 minutter"], spotify: "https://open.spotify.com/track/3EYOJ5WMkiB1jkGPCKReSj" },
+      { points: 500, q: "Hvilket Massive Attack-album fra 1998 er opkaldt efter en beskyttelsesengel og betragtes som det ultimative sensuelle album?", a: "Mezzanine", options: ["Mezzanine", "Blue Lines", "Protection", "Heligoland"], spotify: "https://open.spotify.com/track/6VoIBz0VhCyz7OdEoRYDiA" }
     ]
   },
   {
     name: "Fisse Lis",
     icon: "🐱",
     questions: [
-      { points: 100, q: "Hvad hedder FISSELIS' selvbetitlede debutsingle fra 2020?", a: "FisseLis", options: ["FisseLis", "Hår På Fissen", "Dildo", "Bollevenner"] },
+      { points: 100, q: "Hvad hedder FISSELIS' selvbetitlede debutsingle fra 2020?", a: "FisseLis", options: ["FisseLis", "Hår På Fissen", "Dildo", "Bollevenner"], spotify: "https://open.spotify.com/track/01yMU2VqoMQMhCMBok5OWr" },
       { points: 200, q: "Hvilken sang af FISSELIS handler om uønskede billeder i indbakken?", a: "Vodka, Dickpics", options: ["Vodka, Dickpics", "Pikslikker", "Verdens Mindste P*k", "Vis Mig Hva Du Ka"] },
       { points: 300, q: "Hvem featurede FISSELIS på nummeret 'Vodka, Dickpics'?", a: "Johny Cola", options: ["Johny Cola", "Ukendt Kunstner", "Gilli", "Kesi"] },
       { points: 400, q: "Hvad hedder FISSELIS' comeback-single fra 2025 efter 5 års pause?", a: "Bollevenner", options: ["Bollevenner", "FisseLis 2.0", "Hår På Fissen Remix", "Knaldrøde Kusse"] },
-      { points: 500, q: "Hvilket af disse er IKKE en rigtig FISSELIS-sang?", a: "Slik Min Sjæl", options: ["Hår På Fissen", "Verdens Mindste P*k", "Knaldrøde Kusse", "Slik Min Sjæl"] }
+      { points: 500, q: "Hvilket af disse er IKKE en rigtig FISSELIS-sang?", a: "Slik Min Sjæl", options: ["Hår På Fissen", "Verdens Mindste P*k", "Knaldrøde Kusse", "Slik Min Sjæl"], spotify: "https://open.spotify.com/artist/1o5S5CMNiUNQUUpu0DVIKc" }
     ]
   }
 ];

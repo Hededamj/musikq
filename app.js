@@ -976,18 +976,11 @@ function pickStripCell(col, row) {
   // Media
   const oldMedia = document.getElementById('spMedia');
   if (oldMedia) oldMedia.remove();
-  if (q.img || q.audio) {
+  if (q.img || q.audio || q.spotify) {
     const container = document.createElement('div');
     container.id = 'spMedia';
     container.className = 'question-media';
-    if (q.img) container.innerHTML += `<img src="${q.img}" alt="" class="question-img">`;
-    if (q.audio) {
-      container.innerHTML += `
-        <div class="audio-player">
-          <button class="btn-play-audio" onclick="toggleAudio(this)" data-src="${q.audio}">▶ Afspil klip</button>
-          <audio preload="none" src="${q.audio}"></audio>
-        </div>`;
-    }
+    container.innerHTML = buildMediaHTML(q);
     document.getElementById('spQuestion').after(container);
   }
 
@@ -1134,30 +1127,40 @@ function showStripGameOver(loserIndex) {
 }
 
 // ─── Media rendering (image / audio) ───
-function renderQuestionMedia(q) {
-  // Remove old media container if present
-  const old = document.getElementById('questionMedia');
-  if (old) old.remove();
-
-  if (!q.img && !q.audio) return;
-
-  const container = document.createElement('div');
-  container.id = 'questionMedia';
-  container.className = 'question-media';
-
+function buildMediaHTML(q) {
+  let html = '';
   if (q.img) {
-    container.innerHTML += `<img src="${q.img}" alt="Spørgsmålsbillede" class="question-img">`;
+    html += `<img src="${q.img}" alt="Spørgsmålsbillede" class="question-img">`;
   }
   if (q.audio) {
-    container.innerHTML += `
+    html += `
       <div class="audio-player">
         <button class="btn-play-audio" onclick="toggleAudio(this)" data-src="${q.audio}">▶ Afspil klip</button>
         <audio preload="none" src="${q.audio}"></audio>
       </div>
     `;
   }
+  if (q.spotify) {
+    html += `
+      <div class="audio-player">
+        <button class="btn-play-spotify" onclick="window.open('${q.spotify}', '_blank')">🎵 Lyt på Spotify</button>
+      </div>
+    `;
+  }
+  return html;
+}
 
-  // Insert after question text, before options
+function renderQuestionMedia(q) {
+  const old = document.getElementById('questionMedia');
+  if (old) old.remove();
+
+  if (!q.img && !q.audio && !q.spotify) return;
+
+  const container = document.createElement('div');
+  container.id = 'questionMedia';
+  container.className = 'question-media';
+  container.innerHTML = buildMediaHTML(q);
+
   const questionText = document.getElementById('questionText');
   questionText.after(container);
 }
@@ -1166,23 +1169,12 @@ function renderJeopardyMedia(q) {
   const old = document.getElementById('jpMedia');
   if (old) old.remove();
 
-  if (!q.img && !q.audio) return;
+  if (!q.img && !q.audio && !q.spotify) return;
 
   const container = document.createElement('div');
   container.id = 'jpMedia';
   container.className = 'question-media';
-
-  if (q.img) {
-    container.innerHTML += `<img src="${q.img}" alt="Spørgsmålsbillede" class="question-img">`;
-  }
-  if (q.audio) {
-    container.innerHTML += `
-      <div class="audio-player">
-        <button class="btn-play-audio" onclick="toggleAudio(this)" data-src="${q.audio}">▶ Afspil klip</button>
-        <audio preload="none" src="${q.audio}"></audio>
-      </div>
-    `;
-  }
+  container.innerHTML = buildMediaHTML(q);
 
   const jpQuestion = document.getElementById('jpQuestion');
   jpQuestion.after(container);

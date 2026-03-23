@@ -1101,6 +1101,110 @@ body {
   border-radius: 12px;
 }
 
+/* Leaderboard button */
+.btn-leaderboard {
+  padding: 14px 40px;
+  border-radius: 12px;
+  border: 2px solid var(--orange);
+  background: rgba(245,158,11,0.1);
+  color: var(--orange);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s;
+  margin-bottom: 30px;
+  display: inline-block;
+}
+.btn-leaderboard:hover {
+  background: var(--orange);
+  color: white;
+  box-shadow: 0 0 20px rgba(245,158,11,0.3);
+}
+
+/* Leaderboard screen */
+.leaderboard-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.lb-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  padding: 40px 20px;
+}
+.lb-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+.lb-table th {
+  text-align: left;
+  padding: 8px 16px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.lb-table th:last-child {
+  text-align: right;
+}
+.lb-row {
+  background: var(--card);
+  border-radius: 12px;
+}
+.lb-row td {
+  padding: 14px 16px;
+}
+.lb-row td:first-child {
+  border-radius: 12px 0 0 12px;
+  font-size: 1.3rem;
+  width: 50px;
+  text-align: center;
+}
+.lb-row td:last-child {
+  border-radius: 0 12px 12px 0;
+  text-align: right;
+  font-weight: 900;
+  color: var(--green);
+  font-size: 1.2rem;
+}
+.lb-name {
+  font-weight: 700;
+}
+.lb-wins {
+  font-size: 0.85rem;
+  color: var(--orange);
+  margin-left: 8px;
+}
+.lb-row.lb-first {
+  background: rgba(245,158,11,0.15);
+  border: 2px solid rgba(245,158,11,0.3);
+}
+.lb-games-played {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+.btn-reset-lb {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 24px;
+  border-radius: 10px;
+  border: 1px solid rgba(239,68,68,0.3);
+  background: transparent;
+  color: var(--red);
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s;
+}
+.btn-reset-lb:hover {
+  background: var(--red);
+  color: white;
+}
+
 /* Strip Jeopardy */
 .strip-card {
   border: 2px solid rgba(236,72,153,0.3) !important;

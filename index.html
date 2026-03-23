@@ -54,6 +54,8 @@
         </div>
       </div>
 
+      <button class="btn-leaderboard" onclick="showLeaderboard()">🏆 Leaderboard</button>
+
       <div class="mode-select">
         <h2>Vælg spillemåde</h2>
         <div class="mode-cards">
@@ -193,6 +195,15 @@
         <button class="btn-action" onclick="selectMode('chess')">⏱️ Spil igen</button>
       </div>
     </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="leaderboardScreen" class="screen">
+    <div class="screen-header">
+      <button class="btn-back" onclick="goToLanding()">← Tilbage</button>
+      <h1>🏆 Leaderboard</h1>
+    </div>
+    <div class="leaderboard-content" id="leaderboardContent"></div>
   </div>
 
   <!-- STRIP JEOPARDY BOARD -->

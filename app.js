@@ -39,6 +39,77 @@ let state = {
   allQuestions: []
 };
 
+// ─── Leaderboard ───
+let leaderboard = {}; // { "Hold 1": { points: 0, wins: 0, games: 0 }, ... }
+
+function recordGameResult() {
+  if (!state.teams || state.teams.length === 0) return;
+
+  // Find winner
+  const maxScore = Math.max(...state.teams.map(t => t.score));
+
+  state.teams.forEach(t => {
+    if (!leaderboard[t.name]) {
+      leaderboard[t.name] = { emoji: t.emoji, points: 0, wins: 0, games: 0 };
+    }
+    leaderboard[t.name].emoji = t.emoji;
+    leaderboard[t.name].points += t.score;
+    leaderboard[t.name].games++;
+    if (t.score === maxScore && maxScore > 0) {
+      leaderboard[t.name].wins++;
+    }
+  });
+}
+
+function showLeaderboard() {
+  showScreen('leaderboardScreen');
+  renderLeaderboard();
+}
+
+function renderLeaderboard() {
+  const container = document.getElementById('leaderboardContent');
+  const entries = Object.entries(leaderboard)
+    .map(([name, data]) => ({ name, ...data }))
+    .sort((a, b) => b.points - a.points || b.wins - a.wins);
+
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="lb-empty">Ingen spil endnu — spil en runde!</div>';
+    return;
+  }
+
+  const medals = ['🥇', '🥈', '🥉'];
+  const totalGames = Math.max(...entries.map(e => e.games));
+
+  container.innerHTML = `
+    <table class="lb-table">
+      <thead>
+        <tr><th></th><th>Hold</th><th>Point</th></tr>
+      </thead>
+      <tbody>
+        ${entries.map((e, i) => `
+          <tr class="lb-row ${i === 0 ? 'lb-first' : ''}">
+            <td>${medals[i] || '#' + (i + 1)}</td>
+            <td>
+              <span class="lb-name">${e.emoji} ${e.name}</span>
+              <span class="lb-wins">${e.wins} sejr${e.wins !== 1 ? 'e' : ''}</span>
+            </td>
+            <td>${e.points}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <div class="lb-games-played">${totalGames} spil spillet</div>
+    <button class="btn-reset-lb" onclick="resetLeaderboard()">Nulstil leaderboard</button>
+  `;
+}
+
+function resetLeaderboard() {
+  if (confirm('Nulstil leaderboard?')) {
+    leaderboard = {};
+    renderLeaderboard();
+  }
+}
+
 // ─── Stars ───
 function createStars() {
   const container = document.getElementById('stars');
@@ -112,6 +183,7 @@ function showScreen(id) {
   else if (id === 'jeopardyScreen') navTitle.textContent = '🟦 Jeopardy';
   else if (id === 'quizScreen') navTitle.textContent = state.mode === 'chess' ? '⏱️ Skakur' : 'Quiz';
   else if (id === 'resultsScreen') navTitle.textContent = 'Resultater';
+  else if (id === 'leaderboardScreen') navTitle.textContent = '🏆 Leaderboard';
   else if (id === 'stripScreen') navTitle.textContent = '🩲 Strip Jeopardy';
   else if (id === 'stripGameOver') navTitle.textContent = 'Game Over';
   else if (id === 'gameOverScreen') navTitle.textContent = 'Game Over';
@@ -413,6 +485,7 @@ function revealAnswer() {
 
 // ─── Chess Game Over ───
 function showChessGameOver() {
+  recordGameResult();
   showScreen('gameOverScreen');
 
   // Clean up chess UI
@@ -656,6 +729,7 @@ function renderScoreboard() {
 
 // ─── Results (normal modes) ───
 function showResults() {
+  recordGameResult();
   showScreen('resultsScreen');
 
   document.getElementById('resultsCategory').textContent =
@@ -1074,6 +1148,7 @@ function closeStripIfOutside(event) {
 }
 
 function showStripGameOver(loserIndex) {
+  recordGameResult();
   showScreen('stripGameOver');
 
   if (loserIndex !== null) {

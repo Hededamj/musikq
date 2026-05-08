@@ -120,7 +120,7 @@ body {
   padding-top: 30px;
 }
 
-/* Venue logo (Le Mas Dans Les Oliviers) — spins like a record */
+/* Venue logo (Le Mas Dans Les Oliviers) */
 .venue-logo {
   display: block;
   width: 100%;
@@ -128,14 +128,9 @@ body {
   height: auto;
   margin: 0 auto 24px;
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.45));
-  animation: spin 8s linear infinite;
-  transform-origin: 50% 50%;
 }
 @media (max-width: 600px) {
   .venue-logo { max-width: 320px; margin-bottom: 16px; }
-}
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .title {

@@ -54,7 +54,7 @@ const JEOPARDY_CATEGORIES = [
       { points: 200, q: "Hvem sang 'Smells Like Teen Spirit'?", a: "Nirvana", options: ["Nirvana", "Pearl Jam", "Soundgarden", "Alice in Chains"] },
       { points: 300, q: "Hvilket Oasis-album indeholder både 'Wonderwall' og 'Don't Look Back in Anger'?", a: "(What's the Story) Morning Glory?", options: ["(What's the Story) Morning Glory?", "Definitely Maybe", "Be Here Now", "Standing on the Shoulder of Giants"] },
       { points: 400, q: "Hvem var den originale forsanger i Stone Temple Pilots?", a: "Scott Weiland", options: ["Scott Weiland", "Chris Cornell", "Layne Staley", "Eddie Vedder"] },
-      { points: 500, q: "Radioheads 'OK Computer' blev indspillet i hvilket berømt engelsk landhus?", a: "St Catherine's Court (Jane Seymours hus)", options: ["St Catherine's Court (Jane Seymours hus)", "Abbey Road Studios", "Rockfield Studios", "Olympic Studios"] }
+      { points: 500, q: "Hvilken skuespillerinde ejer huset 'St Catherine's Court' hvor Radiohead indspillede 'OK Computer'?", a: "Jane Seymour", options: ["Jane Seymour", "Helen Mirren", "Judi Dench", "Maggie Smith"] }
     ]
   },
   {
@@ -76,7 +76,7 @@ const JEOPARDY_CATEGORIES = [
       { points: 200, q: "'Hello, is it me you're looking for?' — hvem synger?", a: "Lionel Richie", options: ["Lionel Richie", "Adele", "Phil Collins", "Stevie Wonder"] },
       { points: 300, q: "'I see a red door and I want it painted black' — hvilken sang?", a: "Paint It Black – The Rolling Stones", options: ["Paint It Black – The Rolling Stones", "Back in Black – AC/DC", "Black Dog – Led Zeppelin", "Blackbird – The Beatles"] },
       { points: 400, q: "'Nærmest lykkelig gik jeg ned ad gaden' — hvilken sang og hvilket band?", a: "Nærmest Lykkelig – TV-2", options: ["Nærmest Lykkelig – TV-2", "Floden – Lars H.U.G.", "Sommer i Europa – Thomas Helmig", "Elskere i Natten – Tøsedrengene"] },
-      { points: 500, q: "'I've seen things you people wouldn't believe' er fra Blade Runner — men hvilken kunstner samplede denne linje i nummeret 'Tears in Rain'?", a: "Vangelis (original score)", options: ["Vangelis (original score)", "Depeche Mode", "Gary Numan", "Moby"] }
+      { points: 500, q: "Hvem komponerede det originale Blade Runner-score, herunder nummeret 'Tears in Rain'?", a: "Vangelis", options: ["Vangelis", "Hans Zimmer", "Brian Eno", "Tangerine Dream"] }
     ]
   },
   {
@@ -97,19 +97,19 @@ const JEOPARDY_CATEGORIES = [
       { points: 100, q: "Hvem er trommeslager i Metallica?", a: "Lars Ulrich", options: ["Lars Ulrich", "Dave Lombardo", "Neil Peart", "Dave Grohl"] },
       { points: 200, q: "Hvem er bassist i Red Hot Chili Peppers?", a: "Flea", options: ["Flea", "Les Claypool", "Mike Dirnt", "Duff McKagan"] },
       { points: 300, q: "Hvem erstattede Peter Gabriel som forsanger i Genesis?", a: "Phil Collins", options: ["Phil Collins", "Steve Hackett", "Tony Banks", "Mike Rutherford"] },
-      { points: 400, q: "Hvem var den originale guitarist i Black Sabbath, før han forlod bandet?", a: "Tony Iommi forlod aldrig — det var Ozzy der blev fyret", options: ["Tony Iommi forlod aldrig — det var Ozzy der blev fyret", "Tony Iommi", "Geezer Butler", "Bill Ward"] },
-      { points: 500, q: "Hvem spillede keyboard på The Doors' numre — da bandet ikke havde en bassist?", a: "Ray Manzarek (spillede bas med venstre hånd)", options: ["Ray Manzarek (spillede bas med venstre hånd)", "Jon Lord", "Rick Wakeman", "Keith Emerson"] }
+      { points: 400, q: "Hvem var Black Sabbath's originale forsanger — fyret i 1979 og erstattet af Ronnie James Dio?", a: "Ozzy Osbourne", options: ["Ozzy Osbourne", "Ian Gillan", "Glenn Hughes", "Tony Martin"] },
+      { points: 500, q: "Hvem spillede keyboard og bas-figurer (med venstre hånd) i The Doors, der ikke havde nogen bassist?", a: "Ray Manzarek", options: ["Ray Manzarek", "Jon Lord", "Rick Wakeman", "Keith Emerson"] }
     ]
   },
   {
     name: "Årtalsquiz",
     icon: "📅",
     questions: [
-      { points: 100, q: "I hvilket årti blev 'Bohemian Rhapsody' udgivet?", a: "1970'erne (1975)", options: ["1970'erne (1975)", "1960'erne", "1980'erne", "1990'erne"] },
+      { points: 100, q: "I hvilket årti blev 'Bohemian Rhapsody' udgivet?", a: "1970'erne", options: ["1970'erne", "1960'erne", "1980'erne", "1990'erne"] },
       { points: 200, q: "Hvilket år blev MTV lanceret?", a: "1981", options: ["1979", "1981", "1983", "1985"] },
       { points: 300, q: "Hvilket år udgav Nirvana 'Nevermind'?", a: "1991", options: ["1989", "1990", "1991", "1992"] },
       { points: 400, q: "Hvilket år fandt Woodstock-festivalen sted?", a: "1969", options: ["1967", "1968", "1969", "1970"] },
-      { points: 500, q: "Hvilket år udgav The Beatles deres sidste studiealbum 'Let It Be' — og hvilket album blev faktisk indspillet sidst?", a: "Let It Be (1970), men Abbey Road (1969) blev indspillet sidst", options: ["Let It Be (1970), men Abbey Road (1969) blev indspillet sidst", "Let It Be var det sidste i begge", "Abbey Road var det sidste i begge", "Sgt. Pepper's var det sidste"] }
+      { points: 500, q: "The Beatles' sidste udgivne studiealbum var 'Let It Be' — men hvilket album blev faktisk indspillet sidst?", a: "Abbey Road", options: ["Abbey Road", "Let It Be", "Sgt. Pepper's Lonely Hearts Club Band", "The White Album"] }
     ]
   },
   {
@@ -129,9 +129,9 @@ const JEOPARDY_CATEGORIES = [
     questions: [
       { points: 100, q: "Hvilket instrument er Elton John mest kendt for?", a: "Klaver", options: ["Klaver", "Guitar", "Saxofon", "Trommer"] },
       { points: 200, q: "Hvad hedder Eric Claptons berømte sorte Fender-guitar?", a: "Blackie", options: ["Blackie", "Lucille", "Trigger", "Old Black"] },
-      { points: 300, q: "Hvilket instrument spillede Jimi Hendrix — og med hvilken hånd (usædvanligt)?", a: "Guitar, venstreåndet (spillede en omvendt højrehåndguitar)", options: ["Guitar, venstreåndet (spillede en omvendt højrehåndguitar)", "Guitar, højrehåndet", "Bas, venstreåndet", "Guitar, begge hænder"] },
+      { points: 300, q: "Jimi Hendrix var venstrehåndet — men hvordan spillede han sin guitar?", a: "På en omvendt højrehåndsguitar", options: ["På en omvendt højrehåndsguitar", "På en specialbygget venstrehåndsguitar", "Han skiftede mellem begge hænder", "Han spillede med højre hånd"] },
       { points: 400, q: "Hvad hedder B.B. Kings guitar?", a: "Lucille", options: ["Lucille", "Blackie", "Trigger", "Stella"] },
-      { points: 500, q: "Brian May fra Queen byggede sin guitar 'Red Special' selv. Hvad var den delvist lavet af?", a: "Et gammelt kaminstykke (pejshylde af mahogni)", options: ["Et gammelt kaminstykke (pejshylde af mahogni)", "En gammel dør", "Jernbaneskinner", "En båd"] }
+      { points: 500, q: "Brian May fra Queen byggede sin guitar 'Red Special' selv. Hvad var den delvist lavet af?", a: "En gammel pejshylde", options: ["En gammel pejshylde", "En gammel dør", "Jernbaneskinner", "En båd"] }
     ]
   },
   {

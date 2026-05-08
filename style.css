@@ -1091,16 +1091,6 @@ body {
   background: var(--cyan);
   color: var(--bg);
 }
-.spotify-embed {
-  margin: 12px auto;
-  max-width: 400px;
-  border-radius: 12px;
-  overflow: hidden;
-}
-.spotify-embed iframe {
-  border-radius: 12px;
-}
-
 /* Leaderboard button */
 .btn-leaderboard {
   padding: 14px 40px;

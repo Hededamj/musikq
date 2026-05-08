@@ -1,4 +1,4 @@
-// MusikQ - Skoven Kalder 2026
+// MusikQ - Le Mas Den Les Oliviers (Cabris, Frankrig)
 
 const EMOJIS = ['🎸', '🥁', '🎤', '🎹', '🎺', '🎷'];
 const CATEGORY_ICONS = {
@@ -13,7 +13,8 @@ const CATEGORY_ICONS = {
   "Hvem Er Bandet?": '🎭',
   "2000'er & Nyere": '📱',
   "Album Covers": '🖼️',
-  "Årtier Mix": '🎰'
+  "Årtier Mix": '🎰',
+  "Palles kategori": '🎛️'
 };
 
 let state = {
@@ -1050,7 +1051,7 @@ function pickStripCell(col, row) {
   // Media
   const oldMedia = document.getElementById('spMedia');
   if (oldMedia) oldMedia.remove();
-  if (q.img || q.audio || q.spotify) {
+  if (q.img || q.audio) {
     const container = document.createElement('div');
     container.id = 'spMedia';
     container.className = 'question-media';
@@ -1215,15 +1216,6 @@ function buildMediaHTML(q) {
       </div>
     `;
   }
-  if (q.spotify) {
-    // Convert spotify track URL to embed URL
-    const embedUrl = q.spotify.replace('open.spotify.com/', 'open.spotify.com/embed/') + '?utm_source=generator&theme=0';
-    html += `
-      <div class="spotify-embed">
-        <iframe src="${embedUrl}" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-      </div>
-    `;
-  }
   return html;
 }
 
@@ -1231,7 +1223,7 @@ function renderQuestionMedia(q) {
   const old = document.getElementById('questionMedia');
   if (old) old.remove();
 
-  if (!q.img && !q.audio && !q.spotify) return;
+  if (!q.img && !q.audio) return;
 
   const container = document.createElement('div');
   container.id = 'questionMedia';
@@ -1246,7 +1238,7 @@ function renderJeopardyMedia(q) {
   const old = document.getElementById('jpMedia');
   if (old) old.remove();
 
-  if (!q.img && !q.audio && !q.spotify) return;
+  if (!q.img && !q.audio) return;
 
   const container = document.createElement('div');
   container.id = 'jpMedia';

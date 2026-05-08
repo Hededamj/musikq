@@ -155,5 +155,16 @@ const JEOPARDY_CATEGORIES = [
       { points: 400, q: "Hvilket Madonna-album fra 1986 indeholder 'La Isla Bonita' og 'Papa Don't Preach'?", a: "True Blue", options: ["True Blue", "Like a Virgin", "Who's That Girl", "Like a Prayer"] },
       { points: 500, q: "Hvem komponerede 'Total Eclipse of the Heart' for Bonnie Tyler — den samme mand der skrev for Meat Loaf?", a: "Jim Steinman", options: ["Jim Steinman", "Mike Chapman", "Trevor Horn", "Giorgio Moroder"] }
     ]
+  },
+  {
+    name: "ABBA",
+    icon: "🪩",
+    questions: [
+      { points: 100, q: "Hvilket land kommer ABBA fra?", a: "Sverige", options: ["Sverige", "Norge", "Danmark", "Finland"] },
+      { points: 200, q: "Hvilken sang vandt ABBA Eurovision med i 1974?", a: "Waterloo", options: ["Waterloo", "SOS", "Mamma Mia", "Ring Ring"] },
+      { points: 300, q: "Hvilken ABBA-sang fra 1980 handler om en kvindes accept af et brud?", a: "The Winner Takes It All", options: ["The Winner Takes It All", "Knowing Me, Knowing You", "SOS", "One of Us"] },
+      { points: 400, q: "Hvad hedder ABBA's comeback-album fra 2021 — det første nye studiealbum i 40 år?", a: "Voyage", options: ["Voyage", "The Visitors", "Reunion", "Super Trouper II"] },
+      { points: 500, q: "Hvilke to par udgjorde ABBA — fra første bogstav i deres fornavne?", a: "Agnetha & Björn + Anni-Frid & Benny", options: ["Agnetha & Björn + Anni-Frid & Benny", "Agnetha & Benny + Anni-Frid & Björn", "Agnetha & Anni-Frid + Björn & Benny", "Astrid & Bjarne + Anita & Bo"] }
+    ]
   }
 ];

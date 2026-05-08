@@ -14,7 +14,8 @@ const CATEGORY_ICONS = {
   "2000'er & Nyere": '📱',
   "Album Covers": '🖼️',
   "Årtier Mix": '🎰',
-  "Palles kategori": '🎛️'
+  "Palles kategori": '🎛️',
+  "ABBA": '🪩'
 };
 
 let state = {

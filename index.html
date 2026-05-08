@@ -233,8 +233,12 @@
     </div>
   </div>
 
+  <!-- Spotify IFrame host — audio only, UI hidden off-screen -->
+  <div id="spotifyHost" aria-hidden="true" style="position:fixed; left:-9999px; top:-9999px; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
+
   <script src="questions.js"></script>
   <script src="jeopardy.js"></script>
   <script src="app.js"></script>
+  <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 </body>
 </html>

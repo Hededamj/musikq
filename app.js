@@ -17,7 +17,8 @@ const CATEGORY_ICONS = {
   "Palles kategori": '🎛️',
   "ABBA": '🪩',
   "Børnesange": '🧸',
-  "Disney": '🏰'
+  "Disney": '🏰',
+  "Lyt og Gæt": '🎧'
 };
 
 let state = {
@@ -172,6 +173,7 @@ function getTeams() {
 
 // ─── Screen management ───
 function showScreen(id) {
+  stopMysteryTrack();
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
@@ -1054,13 +1056,15 @@ function pickStripCell(col, row) {
   // Media
   const oldMedia = document.getElementById('spMedia');
   if (oldMedia) oldMedia.remove();
-  if (q.img || q.audio) {
+  stopMysteryTrack();
+  if (q.img || q.audio || q.spotify) {
     const container = document.createElement('div');
     container.id = 'spMedia';
     container.className = 'question-media';
     container.innerHTML = buildMediaHTML(q);
     document.getElementById('spQuestion').after(container);
   }
+  if (q.spotify) attachMysteryTrack(q.spotify);
 
   const letters = ['A', 'B', 'C', 'D'];
   const shuffledOpts = shuffle(q.options);
@@ -1205,7 +1209,70 @@ function showStripGameOver(loserIndex) {
   `;
 }
 
-// ─── Media rendering (image / audio) ───
+// ─── Spotify "Lyt og Gæt" mystery mode (hidden iframe, custom button) ───
+let spotifyAPI = null;
+let spotifyController = null;
+let spotifyPendingUri = null;
+
+window.onSpotifyIframeApiReady = (IFrameAPI) => {
+  spotifyAPI = IFrameAPI;
+  if (spotifyPendingUri) {
+    const uri = spotifyPendingUri;
+    spotifyPendingUri = null;
+    attachMysteryTrack(uri);
+  }
+};
+
+function spotifyUrlToUri(url) {
+  if (url.startsWith('spotify:')) return url;
+  const m = url.match(/\/track\/([A-Za-z0-9]+)/);
+  return m ? `spotify:track:${m[1]}` : url;
+}
+
+function attachMysteryTrack(spotifyUrl) {
+  if (!spotifyAPI) {
+    spotifyPendingUri = spotifyUrl;
+    return;
+  }
+  const uri = spotifyUrlToUri(spotifyUrl);
+  if (spotifyController) {
+    try {
+      spotifyController.loadUri(uri);
+      spotifyController.pause();
+      return;
+    } catch (e) {
+      try { spotifyController.destroy(); } catch (_) {}
+      spotifyController = null;
+    }
+  }
+  const host = document.getElementById('spotifyHost');
+  if (!host) return;
+  host.innerHTML = '';
+  const placeholder = document.createElement('div');
+  host.appendChild(placeholder);
+  spotifyAPI.createController(placeholder, { uri, width: '300', height: '80' }, (ctrl) => {
+    spotifyController = ctrl;
+    ctrl.addListener('playback_update', (e) => {
+      const btn = document.querySelector('.btn-play-mystery');
+      if (!btn) return;
+      const isPaused = e.data.isPaused;
+      btn.classList.toggle('playing', !isPaused);
+      btn.textContent = isPaused ? '▶ Afspil klip' : '⏸ Stop';
+    });
+  });
+}
+
+function toggleMysteryPlay() {
+  if (spotifyController) spotifyController.togglePlay();
+}
+
+function stopMysteryTrack() {
+  if (spotifyController) {
+    try { spotifyController.pause(); } catch (e) {}
+  }
+}
+
+// ─── Media rendering (image / audio / spotify) ───
 function buildMediaHTML(q) {
   let html = '';
   if (q.img) {
@@ -1219,14 +1286,23 @@ function buildMediaHTML(q) {
       </div>
     `;
   }
+  if (q.spotify) {
+    html += `
+      <div class="mystery-track">
+        <div class="mystery-hint">🎧 Lyt og gæt</div>
+        <button class="btn-play-mystery" onclick="toggleMysteryPlay()">▶ Afspil klip</button>
+      </div>
+    `;
+  }
   return html;
 }
 
 function renderQuestionMedia(q) {
   const old = document.getElementById('questionMedia');
   if (old) old.remove();
+  stopMysteryTrack();
 
-  if (!q.img && !q.audio) return;
+  if (!q.img && !q.audio && !q.spotify) return;
 
   const container = document.createElement('div');
   container.id = 'questionMedia';
@@ -1235,13 +1311,16 @@ function renderQuestionMedia(q) {
 
   const questionText = document.getElementById('questionText');
   questionText.after(container);
+
+  if (q.spotify) attachMysteryTrack(q.spotify);
 }
 
 function renderJeopardyMedia(q) {
   const old = document.getElementById('jpMedia');
   if (old) old.remove();
+  stopMysteryTrack();
 
-  if (!q.img && !q.audio) return;
+  if (!q.img && !q.audio && !q.spotify) return;
 
   const container = document.createElement('div');
   container.id = 'jpMedia';
@@ -1250,6 +1329,8 @@ function renderJeopardyMedia(q) {
 
   const jpQuestion = document.getElementById('jpQuestion');
   jpQuestion.after(container);
+
+  if (q.spotify) attachMysteryTrack(q.spotify);
 }
 
 function toggleAudio(btn) {

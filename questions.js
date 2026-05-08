@@ -522,5 +522,27 @@ const QUESTIONS = {
     { q: "Sangene 'Touch the Sky' og 'Into the Open Air' er fra hvilken Pixar-film med en skotsk prinsesse?", a: "Modig", options: ["Modig", "Frost", "Vaiana", "Den Utrolige Familie"] },
     { q: "Hvilken klassisk Disney-figur er en flyvende cirkus-elefant?", a: "Dumbo", options: ["Dumbo", "Bambi", "Tarzan", "Pinocchio"] },
     { q: "Titelsangen 'Beauty and the Beast' synges af tekanden Mrs. Potts. Hvor finder filmen sted?", a: "På et fortryllet slot i Frankrig", options: ["På et fortryllet slot i Frankrig", "I et engelsk landsby", "I et tysk skovkloster", "På en italiensk øde ø"] }
+  ],
+  "Lyt og Gæt": [
+    { q: "Hvilket band spiller?", a: "a-ha", options: ["a-ha", "Duran Duran", "Depeche Mode", "Pet Shop Boys"], spotify: "https://open.spotify.com/track/2WfaOiMkCvy7F5fcp2zZ8L" },
+    { q: "Hvilken kunstner spiller?", a: "Michael Jackson", options: ["Michael Jackson", "Prince", "Stevie Wonder", "Lionel Richie"], spotify: "https://open.spotify.com/track/5ChkMS8OtdzJeqyybCc9R5" },
+    { q: "Hvilket band spiller?", a: "Guns N' Roses", options: ["Guns N' Roses", "Bon Jovi", "Mötley Crüe", "Def Leppard"], spotify: "https://open.spotify.com/track/7o2CTH4ctstm8TNelqjb51" },
+    { q: "Hvilket band spiller?", a: "Journey", options: ["Journey", "Foreigner", "REO Speedwagon", "Styx"], spotify: "https://open.spotify.com/track/4bHsxqR3GMrXTxEPLuK5ue" },
+    { q: "Hvilket band spiller?", a: "Toto", options: ["Toto", "Genesis", "Foreigner", "Asia"], spotify: "https://open.spotify.com/track/0PX5DeeFUEVhA5LEeomIlG" },
+    { q: "Hvilket band spiller?", a: "Nirvana", options: ["Nirvana", "Pearl Jam", "Soundgarden", "Alice in Chains"], spotify: "https://open.spotify.com/track/5JMfIuCTLE8p6mujmZGKB9" },
+    { q: "Hvilket band spiller?", a: "Oasis", options: ["Oasis", "Blur", "Radiohead", "The Verve"], spotify: "https://open.spotify.com/track/5wj4E6IsrVtn8IBJQOd0Cl" },
+    { q: "Hvilket band spiller?", a: "Led Zeppelin", options: ["Led Zeppelin", "Deep Purple", "Black Sabbath", "Pink Floyd"], spotify: "https://open.spotify.com/track/5CQ30WqJwcep0pYcV4AMNc" },
+    { q: "Hvilket band spiller?", a: "Queen", options: ["Queen", "The Rolling Stones", "The Who", "The Kinks"], spotify: "https://open.spotify.com/track/7tFiyTwD0nx5a1eklYtX2J" },
+    { q: "Hvilket band spiller?", a: "Eagles", options: ["Eagles", "Fleetwood Mac", "The Doors", "Creedence Clearwater Revival"], spotify: "https://open.spotify.com/track/40riOy7x9W7GXjyGp4pjAv" },
+    { q: "Hvilket band spiller?", a: "Deep Purple", options: ["Deep Purple", "Led Zeppelin", "Black Sabbath", "Uriah Heep"], spotify: "https://open.spotify.com/track/5SAUIWdZ04OxYfJFDchC7S" },
+    { q: "Hvilken dansk kunstner spiller?", a: "Kim Larsen", options: ["Kim Larsen", "Sebastian", "Thomas Helmig", "Lars H.U.G."], spotify: "https://open.spotify.com/track/6FvyN8jVNDNsOREm5VDlex" },
+    { q: "Hvilket dansk band spiller?", a: "Gasolin'", options: ["Gasolin'", "Sort Sol", "TV-2", "Gnags"], spotify: "https://open.spotify.com/track/4Z4kEP9at1yOoAPtaBLp4P" },
+    { q: "Hvilket dansk-norsk band spiller?", a: "Aqua", options: ["Aqua", "Toy-Box", "Ace of Base", "Vengaboys"], spotify: "https://open.spotify.com/track/6SIDRn0OX4I8sGsDa4eCOZ" },
+    { q: "Hvilken kunstner spiller?", a: "Madonna", options: ["Madonna", "Cyndi Lauper", "Whitney Houston", "Janet Jackson"], spotify: "https://open.spotify.com/track/1ZPlNanZsJSPK5h9YZZFbZ" },
+    { q: "Hvilket band spiller?", a: "The Police", options: ["The Police", "U2", "Dire Straits", "The Cure"], spotify: "https://open.spotify.com/track/1JSTJqkT5qHq8MDJnJbRE1" },
+    { q: "Hvilken kunstner spiller?", a: "Prince", options: ["Prince", "Michael Jackson", "George Michael", "David Bowie"], spotify: "https://open.spotify.com/track/54X78diSLoUDI3joC2bjMz" },
+    { q: "Hvilken kunstner spiller?", a: "Cyndi Lauper", options: ["Cyndi Lauper", "Madonna", "Pat Benatar", "Blondie"], spotify: "https://open.spotify.com/track/4y1LsJpmMti1PfRQV9AWWe" },
+    { q: "Hvilket band spiller?", a: "Europe", options: ["Europe", "Whitesnake", "Scorpions", "Survivor"], spotify: "https://open.spotify.com/track/3MrRksHupTVEQ7YbA0FsZK" },
+    { q: "Hvilket band spiller?", a: "Wham!", options: ["Wham!", "Duran Duran", "Culture Club", "Frankie Goes to Hollywood"], spotify: "https://open.spotify.com/track/0ikz6tENMONtK6qGkOrU3c" }
   ]
 };

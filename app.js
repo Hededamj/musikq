@@ -1,4 +1,4 @@
-// MusikQ - Le Mas Den Les Oliviers (Cabris, Frankrig)
+// MusikQ - Le Mas Dans Les Oliviers (Cabris, Frankrig)
 
 const EMOJIS = ['🎸', '🥁', '🎤', '🎹', '🎺', '🎷'];
 const CATEGORY_ICONS = {

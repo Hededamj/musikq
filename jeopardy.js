@@ -135,7 +135,7 @@ const JEOPARDY_CATEGORIES = [
     ]
   },
   {
-    name: "Tandrasex",
+    name: "Tantrasex",
     icon: "🔥",
     questions: [
       { points: 100, q: "Hvem sang 'Let's Get It On' i 1973?", a: "Marvin Gaye", options: ["Marvin Gaye", "Barry White", "Al Green", "Stevie Wonder"] },

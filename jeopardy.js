@@ -166,5 +166,27 @@ const JEOPARDY_CATEGORIES = [
       { points: 400, q: "Hvad hedder ABBA's comeback-album fra 2021 — det første nye studiealbum i 40 år?", a: "Voyage", options: ["Voyage", "The Visitors", "Reunion", "Super Trouper II"] },
       { points: 500, q: "Hvilke to par udgjorde ABBA — fra første bogstav i deres fornavne?", a: "Agnetha & Björn + Anni-Frid & Benny", options: ["Agnetha & Björn + Anni-Frid & Benny", "Agnetha & Benny + Anni-Frid & Björn", "Agnetha & Anni-Frid + Björn & Benny", "Astrid & Bjarne + Anita & Bo"] }
     ]
+  },
+  {
+    name: "Børnesange",
+    icon: "🧸",
+    questions: [
+      { points: 100, q: "Hvilken børnesang handler om en lille bille der har mistet sin mor?", a: "Mariehøne Evigglad", options: ["Mariehøne Evigglad", "Bjørnen Sover", "Lille Peter Edderkop", "Solen Er Så Rød"] },
+      { points: 200, q: "Hvad hedder Pippi Langstrømpes abe?", a: "Hr. Nilsson", options: ["Hr. Nilsson", "Hr. Andersson", "Hr. Skogsberg", "Hr. Pettersson"] },
+      { points: 300, q: "Hvilken dansk musiker har sat melodi til mange af Halfdan Rasmussens børnedigte?", a: "Sebastian", options: ["Sebastian", "Kim Larsen", "Anne Linnet", "Lars H.U.G."] },
+      { points: 400, q: "Hvilken H.C. Andersen-historie inspirerede Disney-filmen 'Frost'?", a: "Snedronningen", options: ["Snedronningen", "Den Lille Havfrue", "Tommelise", "Klods-Hans"] },
+      { points: 500, q: "Hvilken finsk forfatter skabte Mumitrolde-universet?", a: "Tove Jansson", options: ["Tove Jansson", "Astrid Lindgren", "Selma Lagerlöf", "Maria Parr"] }
+    ]
+  },
+  {
+    name: "Disney",
+    icon: "🏰",
+    questions: [
+      { points: 100, q: "Sangen 'Let It Go' er fra hvilken Disney-film?", a: "Frost", options: ["Frost", "Vaiana", "Aladdin", "Den Lille Havfrue"] },
+      { points: 200, q: "I hvilken Disney-film synges 'Hakuna Matata'?", a: "Løvernes Konge", options: ["Løvernes Konge", "Junglebogen", "Madagascar", "Bambi"] },
+      { points: 300, q: "Hvad hedder den røde krabbe der synger 'Under the Sea' i 'Den Lille Havfrue'?", a: "Sebastian", options: ["Sebastian", "Sebastien", "Crabbe", "Coral"] },
+      { points: 400, q: "Hvilken Disney-prinsesse forklæder sig som mand for at gå i krig for sin far?", a: "Mulan", options: ["Mulan", "Pocahontas", "Vaiana", "Merida"] },
+      { points: 500, q: "Hvilken Pixar-film fra 2017 handler om de dødes dag i Mexico og indeholder sangen 'Remember Me'?", a: "Coco", options: ["Coco", "Onward", "Sjæl", "Encanto"] }
+    ]
   }
 ];

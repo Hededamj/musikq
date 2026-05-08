@@ -15,7 +15,9 @@ const CATEGORY_ICONS = {
   "Album Covers": '🖼️',
   "Årtier Mix": '🎰',
   "Palles kategori": '🎛️',
-  "ABBA": '🪩'
+  "ABBA": '🪩',
+  "Børnesange": '🧸',
+  "Disney": '🏰'
 };
 
 let state = {

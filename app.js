@@ -1321,6 +1321,7 @@ function showStripGameOver(loserIndex) {
 let spotifyAPI = null;
 let spotifyController = null;
 let spotifyPendingUri = null;
+let spotifyScriptLoaded = false;
 
 window.onSpotifyIframeApiReady = (IFrameAPI) => {
   spotifyAPI = IFrameAPI;
@@ -1330,6 +1331,25 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
     attachMysteryTrack(uri);
   }
 };
+
+// Load the Spotify IFrame API script with retry+cache-bust fallback.
+// Spotify's CDN occasionally returns ERR_CONNECTION_RESET on first hit; retrying
+// with a fresh URL works around it. Also handles ad-blockers gracefully.
+function loadSpotifyAPIScript(attempt = 0) {
+  if (spotifyScriptLoaded || spotifyAPI) return;
+  const cacheBust = attempt > 0 ? '?cb=' + Date.now() + Math.random().toString(36).slice(2,8) : '';
+  const s = document.createElement('script');
+  s.src = 'https://open.spotify.com/embed/iframe-api/v1' + cacheBust;
+  s.async = true;
+  s.onload = () => { spotifyScriptLoaded = true; };
+  s.onerror = () => {
+    if (attempt < 3) {
+      setTimeout(() => loadSpotifyAPIScript(attempt + 1), 800 + attempt * 600);
+    }
+  };
+  document.head.appendChild(s);
+}
+loadSpotifyAPIScript();
 
 function spotifyUrlToUri(url) {
   if (url.startsWith('spotify:')) return url;

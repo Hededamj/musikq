@@ -18,7 +18,8 @@ const CATEGORY_ICONS = {
   "ABBA": '🪩',
   "Børnesange": '🧸',
   "Disney": '🏰',
-  "Lyt og Gæt": '🎧'
+  "Lyt og Gæt": '🎧',
+  "Kaiser Greatest": '👑'
 };
 
 let state = {
@@ -960,7 +961,11 @@ function pickJeopardyCell(col, row) {
   jeopardyState.answered = false;
 
   const cat = jeopardyState.board[col];
-  const q = cat.questions[row]; // row 0=100, 1=200, etc.
+  const points = [100, 200, 300, 400, 500][row];
+  const candidates = cat.questions.filter(qq => qq.points === points);
+  const q = candidates.length > 1
+    ? candidates[Math.floor(Math.random() * candidates.length)]
+    : (candidates[0] || cat.questions[row]);
 
   jeopardyState.currentQ = { ...q, catName: cat.name, catIcon: cat.icon };
 
@@ -1146,7 +1151,11 @@ function pickStripCell(col, row) {
   stripState.answered = false;
 
   const cat = stripState.board[col];
-  const q = cat.questions[row];
+  const points = [100, 200, 300, 400, 500][row];
+  const candidates = cat.questions.filter(qq => qq.points === points);
+  const q = candidates.length > 1
+    ? candidates[Math.floor(Math.random() * candidates.length)]
+    : (candidates[0] || cat.questions[row]);
   stripState.currentQ = { ...q, catName: cat.name, catIcon: cat.icon };
 
   const overlay = document.getElementById('stripOverlay');

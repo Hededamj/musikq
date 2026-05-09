@@ -188,5 +188,16 @@ const JEOPARDY_CATEGORIES = [
       { points: 400, q: "Hvilken Disney-prinsesse forklæder sig som mand for at gå i krig for sin far?", a: "Mulan", options: ["Mulan", "Pocahontas", "Vaiana", "Merida"] },
       { points: 500, q: "Hvilken Pixar-film fra 2017 handler om de dødes dag i Mexico og indeholder sangen 'Remember Me'?", a: "Coco", options: ["Coco", "Onward", "Sjæl", "Encanto"] }
     ]
+  },
+  {
+    name: "Kaiser Greatest",
+    icon: "👑",
+    questions: [
+      { points: 100, q: "Hvilken svensk DJ stod bag 'Wake Me Up' og 'Levels'?", a: "Avicii", options: ["Avicii", "Tiësto", "Martin Garrix", "Calvin Harris"] },
+      { points: 200, q: "Hvem sang 'Dancing on My Own' (2010) — svensk popstjerne?", a: "Robyn", options: ["Robyn", "Tove Lo", "Lykke Li", "Zara Larsson"] },
+      { points: 300, q: "Hvilken svensk sangerinde vandt Eurovision Song Contest i 2012 med sangen 'Euphoria'?", a: "Loreen", options: ["Loreen", "Carola", "Charlotte Perrelli", "Sanna Nielsen"] },
+      { points: 400, q: "Hvilket svensk DJ-trio stod bag 'Don't You Worry Child' og 'Greyhound'?", a: "Swedish House Mafia", options: ["Swedish House Mafia", "Daft Punk", "Above & Beyond", "Disclosure"] },
+      { points: 500, q: "Hvilken svensk hit-producer fra Stockholm står bag store sange for Britney Spears, Katy Perry og Taylor Swift?", a: "Max Martin", options: ["Max Martin", "Dr. Luke", "RedOne", "Stargate"] }
+    ]
   }
 ];

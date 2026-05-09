@@ -41,8 +41,99 @@ let state = {
   clockRunning: false,
   eliminated: new Set(),
   eliminationOrder: [],
-  allQuestions: []
+  allQuestions: [],
+  // Per-question countdown (alle modes undtagen chess)
+  questionTime: 20,        // sekunder, 0 = fra
+  qTimerHandle: null,
+  qTimeLeft: 0
 };
+
+// ─── Per-question countdown timer (auto-mark wrong on timeout) ───
+function setQuestionTime(seconds) {
+  state.questionTime = seconds;
+  document.querySelectorAll('.qtime-btns .btn-small').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.sec) === seconds);
+  });
+}
+
+function startQuestionTimer() {
+  stopQuestionTimer();
+  if (state.mode === 'chess') return;
+  if (!state.questionTime || state.questionTime <= 0) {
+    hideQuestionTimerDisplays();
+    return;
+  }
+  state.qTimeLeft = state.questionTime;
+  showQuestionTimerDisplays();
+  updateQuestionTimerDisplays();
+  state.qTimerHandle = setInterval(() => {
+    state.qTimeLeft -= 0.1;
+    if (state.qTimeLeft <= 0) {
+      stopQuestionTimer();
+      onQuestionTimeExpired();
+      return;
+    }
+    updateQuestionTimerDisplays();
+  }, 100);
+}
+
+function stopQuestionTimer() {
+  if (state.qTimerHandle) {
+    clearInterval(state.qTimerHandle);
+    state.qTimerHandle = null;
+  }
+  hideQuestionTimerDisplays();
+}
+
+function showQuestionTimerDisplays() {
+  ['quizTimer', 'jpTimer', 'spTimer'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('hidden');
+  });
+}
+
+function hideQuestionTimerDisplays() {
+  ['quizTimer', 'jpTimer', 'spTimer'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  });
+}
+
+function updateQuestionTimerDisplays() {
+  const secs = Math.max(0, state.qTimeLeft);
+  const display = Math.ceil(secs) + 's';
+  let level = '';
+  if (secs <= 5) level = 'danger';
+  else if (secs <= 10) level = 'warning';
+  ['quizTimer', 'jpTimer', 'spTimer'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = display;
+    el.classList.remove('warning', 'danger');
+    if (level) el.classList.add(level);
+  });
+}
+
+function onQuestionTimeExpired() {
+  if (state.mode === 'jeopardy' && !jeopardyState.answered) {
+    jeopardyPass();
+  } else if (state.mode === 'strip' && !stripState.answered) {
+    stripPass();
+  } else if (!state.answered) {
+    state.answered = true;
+    const q = state.questions[state.currentQ];
+    const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;
+    document.querySelectorAll('.option-btn').forEach(b => {
+      if (b.dataset.answer === correctAnswer) b.classList.add('correct');
+      else b.classList.add('wrong');
+    });
+    setTimeout(() => {
+      state.currentTeam = (state.currentTeam + 1) % state.teams.length;
+      state.currentQ++;
+      renderQuestion();
+    }, 1500);
+  }
+}
 
 // ─── Leaderboard ───
 let leaderboard = {}; // { "Hold 1": { points: 0, wins: 0, games: 0 }, ... }
@@ -174,6 +265,9 @@ function getTeams() {
 // ─── Screen management ───
 function showScreen(id) {
   stopMysteryTrack();
+  if (id !== 'quizScreen' && id !== 'jeopardyScreen' && id !== 'stripScreen') {
+    stopQuestionTimer();
+  }
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
@@ -434,10 +528,12 @@ function passQuestion() {
   renderChessQuestion();
 }
 
+
 // Override scoreAnswer for chess mode
 const _originalScoreAnswer = scoreAnswer;
 
 function scoreAnswer(correct) {
+  stopQuestionTimer();
   if (state.mode === 'chess') {
     chessScoreAnswer(correct);
     return;
@@ -469,6 +565,7 @@ function chessScoreAnswer(correct) {
 function revealAnswer() {
   if (state.answered) return;
   state.answered = true;
+  stopQuestionTimer();
 
   const q = state.questions[state.currentQ];
   const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;
@@ -672,11 +769,14 @@ function renderQuestion() {
   card.style.animation = 'none';
   card.offsetHeight;
   card.style.animation = 'fadeInUp 0.4s ease';
+
+  startQuestionTimer();
 }
 
 function selectOption(btn) {
   if (state.answered) return;
   state.answered = true;
+  stopQuestionTimer();
 
   const q = state.questions[state.currentQ];
   const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;
@@ -884,11 +984,14 @@ function pickJeopardyCell(col, row) {
       <span>${opt}</span>
     </button>
   `).join('');
+
+  startQuestionTimer();
 }
 
 function pickJeopardyAnswer(btn) {
   if (jeopardyState.answered) return;
   jeopardyState.answered = true;
+  stopQuestionTimer();
 
   const q = jeopardyState.currentQ;
   const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;
@@ -923,6 +1026,7 @@ function pickJeopardyAnswer(btn) {
 function jeopardyPass() {
   if (jeopardyState.answered) return;
   jeopardyState.answered = true;
+  stopQuestionTimer();
 
   // Show correct answer
   const q = jeopardyState.currentQ;
@@ -1074,11 +1178,14 @@ function pickStripCell(col, row) {
       <span>${opt}</span>
     </button>
   `).join('');
+
+  startQuestionTimer();
 }
 
 function pickStripAnswer(btn) {
   if (stripState.answered) return;
   stripState.answered = true;
+  stopQuestionTimer();
 
   const q = stripState.currentQ;
   const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;
@@ -1128,6 +1235,7 @@ function pickStripAnswer(btn) {
 function stripPass() {
   if (stripState.answered) return;
   stripState.answered = true;
+  stopQuestionTimer();
 
   const q = stripState.currentQ;
   const correctAnswer = Array.isArray(q.a) ? q.a[0] : q.a;

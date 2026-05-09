@@ -46,6 +46,15 @@
           <button class="btn-small active" onclick="setTeams(3)">3 hold</button>
           <button class="btn-small" onclick="setTeams(6)">6 hold</button>
         </div>
+        <div class="qtime-row">
+          <label>Tid per spørgsmål:</label>
+          <div class="qtime-btns">
+            <button class="btn-small" data-sec="15" onclick="setQuestionTime(15)">15s</button>
+            <button class="btn-small active" data-sec="20" onclick="setQuestionTime(20)">20s</button>
+            <button class="btn-small" data-sec="30" onclick="setQuestionTime(30)">30s</button>
+            <button class="btn-small" data-sec="0" onclick="setQuestionTime(0)">Fra</button>
+          </div>
+        </div>
       </div>
 
       <button class="btn-leaderboard" onclick="showLeaderboard()">🏆 Leaderboard</button>
@@ -117,6 +126,7 @@
       <div class="quiz-meta">
         <span class="quiz-category" id="quizCategory"></span>
         <span class="quiz-progress" id="quizProgress"></span>
+        <span class="quiz-timer hidden" id="quizTimer">20s</span>
       </div>
       <div class="scoreboard" id="scoreboard"></div>
     </div>
@@ -171,6 +181,7 @@
     <div class="jeopardy-popup">
       <div class="jp-points" id="jpPoints"></div>
       <div class="jp-category" id="jpCategory"></div>
+      <span class="quiz-timer hidden" id="jpTimer">20s</span>
       <h2 class="jp-question" id="jpQuestion"></h2>
       <div class="jp-options" id="jpOptions"></div>
       <button class="btn-pass jp-pass" id="jpPass" onclick="jeopardyPass()">⏭️ Pas (ingen point)</button>
@@ -214,6 +225,7 @@
     <div class="jeopardy-popup strip-popup">
       <div class="jp-points" id="spPoints"></div>
       <div class="jp-category" id="spCategory"></div>
+      <span class="quiz-timer hidden" id="spTimer">20s</span>
       <h2 class="jp-question" id="spQuestion"></h2>
       <div class="jp-options" id="spOptions"></div>
       <button class="btn-pass jp-pass" id="spPass" onclick="stripPass()">⏭️ Pas (ingen straf)</button>
